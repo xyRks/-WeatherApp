@@ -1,40 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Yandex Weather Style</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Weather App</h1>
+    <div class="app-wrapper">
+        <header class="app-header">
+            <div class="header-content">
+                <h1 id="app-title" class="logo">Прогноз погоды</h1>
+                <div class="controls">
+                    <div class="search-box">
+                        <input type="text" id="city-input" placeholder="Город..." autocomplete="off">
+                        <button id="search-btn">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        </button>
+                    </div>
+                    <select id="lang-select" class="lang-select">
+                        <option value="ru" selected>RU</option>
+                        <option value="en">EN</option>
+                    </select>
+                </div>
+            </div>
         </header>
 
-        <main class="main-content">
-            <div class="search-box">
-                <input type="text" id="city-input" placeholder="Enter city name..." autocomplete="off">
-                <button id="search-btn">Search</button>
+        <main class="main-container">
+            <div id="loading" class="state-message hidden">
+                <div class="spinner"></div>
+                <span id="loading-text">Загрузка...</span>
             </div>
+            <div id="error-message" class="state-message error hidden"></div>
 
-            <div id="loading" class="hidden">Loading...</div>
-            <div id="error-message" class="error hidden"></div>
+            <div id="weather-dashboard" class="weather-dashboard hidden">
 
-            <div id="weather-info" class="weather-info hidden">
-                <h2 id="city-name">--</h2>
-                <div class="temperature">
-                    <span id="temp">--</span>°C
-                </div>
-                <div class="description" id="weather-desc">--</div>
-                <div class="details">
-                    <div class="detail-item">
-                        <span class="label">Wind:</span>
-                        <span id="wind">-- km/h</span>
+                <!-- Текущая погода -->
+                <section class="current-weather-card">
+                    <div class="current-header">
+                        <h2 id="city-name" class="city-name">--</h2>
+                        <p id="local-time" class="local-time">--:--</p>
                     </div>
-                </div>
+
+                    <div class="current-main">
+                        <div class="temp-block">
+                            <div class="temp-large"><span id="temp">--</span>°</div>
+                            <img id="weather-icon" src="" alt="Weather icon" class="weather-icon-large">
+                        </div>
+                        <div class="desc-block">
+                            <p id="weather-desc" class="weather-desc-text">--</p>
+                            <p class="feels-like"><span id="feels-like-label">Ощущается как</span> <span id="feels-like">--</span>°</p>
+                        </div>
+                    </div>
+
+                    <div class="current-details">
+                        <div class="detail-col">
+                            <div class="detail-item">
+                                <span class="d-icon wind-icon"></span>
+                                <span id="wind">--</span> <span id="wind-unit">м/с</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="d-icon humidity-icon"></span>
+                                <span id="humidity">--</span>%
+                            </div>
+                        </div>
+                        <div class="detail-col">
+                            <div class="detail-item">
+                                <span class="d-icon pressure-icon"></span>
+                                <span id="pressure">--</span> <span id="pressure-unit">мм рт. ст.</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="d-icon uv-icon"></span>
+                                <span id="uv-label">УФ-индекс:</span> <span id="uv-index">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Прогноз на сегодня по часам -->
+                <section class="hourly-forecast-section">
+                    <h3 id="hourly-title" class="section-title">Прогноз на 24 часа</h3>
+                    <div class="hourly-scroll-container">
+                        <div id="hourly-container" class="hourly-container">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Прогноз на ближайшие дни -->
+                <section class="daily-forecast-section">
+                    <h3 id="daily-title" class="section-title">Прогноз на 3 дня</h3>
+                    <div id="daily-container" class="daily-container">
+                        <!-- JS will populate this -->
+                    </div>
+                </section>
+
             </div>
         </main>
+
+        <footer class="app-footer">
+            <p>Powered by wttr.in</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
